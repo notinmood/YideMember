@@ -1,0 +1,15 @@
+<!-- 原子力量updated：增加了自己的link -->
+<!-- 底部
+================================================== -->
+<footer id="footer" class="row text-center">
+    <h5> 互动生活馆-让客户源源不断</h5>
+    <h6> 本系统由 <a href="http://{:HILAND_COMPANY_URL}" target="_blank">{:HILAND_COMPANY_NAME}</a> 提供技术支持</h6>
+</footer>
+
+<include file="Public/var"/>
+<block name="script"></block> <!-- 用于加载js代码 -->
+<!-- 页面footer钩子，一般用于加载插件JS文件和JS代码 -->
+{:hook('pageFooter', 'widget')}
+<div class="hidden"><!-- 用于加载统计代码等隐藏元素 -->
+    <block name="hidden"></block>
+</div>

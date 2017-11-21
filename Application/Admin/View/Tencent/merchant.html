@@ -1,0 +1,62 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>商户信息</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal">
+
+        <div class="form-item">
+            <label class="item-label">商户名称</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="merchantname"
+                       value="{$data.merchantname}">
+            </div>
+        </div>
+
+        <div class="form-item">
+            <label class="item-label">电话</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="merchanttelephone"
+                       value="{$data.merchanttelephone}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">商户地址</label>
+            <div class="controls">
+                <textarea name="merchantaddress">{$data.merchantaddress}</textarea>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">二维码内欢迎语</label>
+            <div class="controls">
+                <textarea name="welcomemessage">{$data.welcomemessage}</textarea>
+            </div>
+
+            <php> $merchantid= ''; if(!empty($data)){ $merchantid=
+                $data['merchantid']; } if(empty($merchantid)){ $merchantid=
+                I('merchantid'); }
+            </php>
+            <input type="hidden" name="merchantid" value="{$merchantid}">
+        </div>
+
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit"
+                    target-form="form-horizontal">确 定
+            </button>
+            <button class="btn btn-return"
+                    onclick="javascript:history.back(-1);return false;">返 回
+            </button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        //导航高亮
+        $('.side-sub-menu').find('a[href="{:U('
+        Tencent / index
+        ')}"]'
+        ).closest('li').addClass('current');
+    </script>
+</block>

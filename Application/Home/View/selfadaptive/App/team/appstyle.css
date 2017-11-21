@@ -1,0 +1,48 @@
+/**
+ * 描    述:  APP页面样式文件
+ * 作用范围： 单个APP WEB页面
++----------------------------------------------------------------------
+| Copyright (c) 2015 http://www.cleanbing.cn All rights reserved.
++----------------------------------------------------------------------
+| Author: Cleanbing <cleanbing@qq.com> <http://www.cleanbing.cn>
++----------------------------------------------------------------------
+**/
+
+body{
+	font-weight: 200;
+}
+
+#memberList ul {
+	float:left;
+}
+
+#memberList ul li {
+	float:left;
+	margin-left: 10px;
+	list-style:none;
+}
+
+.memberBox{
+	padding:10px 0px;
+	border-bottom: 1px solid #ecf0f1;
+}
+
+.img-circle{
+	width:100px;
+	height:100px;
+/*	float: left;*/
+}
+.memberGenInfor{
+	font-size: 18px;
+	line-height: 20px;
+	color: #2c3e50;
+}
+.memberRole{
+	text-align: center;
+	padding: 10px 0px;
+	font-size: 15px;
+	line-height: 20px;
+}
+.memberSlogan{
+	color: #2980b9;
+}

@@ -1,0 +1,12 @@
+OneThink正式版For SAE 12月31日更新
+基于12月31日http://git.oschina.net/liu21st/onethink上的代码修改.
+使用说明：
+1.部署代码
+2.初始化Memcache,KVDB
+3.在Storage中创建名为uploads的domain
+4.直接安装
+
+这次的SAE版应该没有什么大的问题了,解决了在SAE下的文章图片上传,文章封面上传,分类图片上传等问题有什么问题大家可以直接提出来,欢迎大家一起交流。
+
+QQ:84896150
+OneThink开发者社区QQ群:173999008

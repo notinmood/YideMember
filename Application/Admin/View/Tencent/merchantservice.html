@@ -1,0 +1,54 @@
+<extend name="Public/base" />
+
+<block name="body">
+<div class="main-title">
+	<h2>商户服务信息</h2>
+</div>
+<form action="{:U()}" method="post" class="form-horizontal">
+	<div class="form-item">
+		<label class="item-label">是否可用</label>
+		<div class="controls">
+			<select name="isusable">
+				<volist name=":C('HILAND_SYSTEM_USABLESTATUS')" id="vo"> <if
+					condition="$data.isusable eq $key">
+				<option value="{$key}" selected>{$vo}</option>
+				<else />
+				<option value="{$key}">{$vo}</option>
+				</if> </volist>
+			</select>
+		</div>
+	</div>
+	<div class="form-item">
+		<label class="item-label">价格</label>
+		<div class="controls">
+			<input type="text" class="text input-large" name="price"
+				value="{$data.price}">
+		</div>
+	</div>
+	<div class="form-item">
+		<label class="item-label">服务名称</label>
+		<div class="controls">
+			<textarea name="servicename">{$data.servicename}</textarea>
+		</div>
+
+		<php> $merchantid= ''; if(!empty($data)){ $merchantid=
+		$data['merchantid']; } if(empty($merchantid)){ $merchantid=
+		I('merchantid'); } $id=''; if(!empty($data)){ $id= $data['id'];; }
+		if(empty($id)){ $id= I('id'); } </php>
+		<input type="hidden" name="merchantid" value="{$merchantid}">
+		<input type="hidden" name="id" value="{$id}">
+	</div>
+
+	<div class="form-item">
+		<button class="btn submit-btn ajax-post" id="submit" type="submit"
+			target-form="form-horizontal">确 定</button>
+		<button class="btn btn-return"
+			onclick="javascript:history.back(-1);return false;">返 回</button>
+	</div>
+</form>
+</block>
+
+<block name="script"> <script type="text/javascript">
+        //导航高亮
+        $('.side-sub-menu').find('a[href="{:U('Tencent/index')}"]').closest('li').addClass('current');
+    </script> </block>

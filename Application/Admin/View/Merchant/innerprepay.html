@@ -1,0 +1,64 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>支付信息</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal">
+
+        <div class="form-item">
+            <label class="item-label">商户名称</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="tousername"
+                       value="{$data.tousername}">
+            </div>
+        </div>
+
+        <div class="form-item">
+            <label class="item-label">用户名称</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="fromusername"
+                       value="{$data.fromusername}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">可用费用</label>
+            <div class="controls">
+                <input type="text" readonly="readonly" class="text input-large" name="userfeeamountcanuse"
+                       value="{$data.userfeeamountcanuse}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">本次支付费用</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="payamount"
+                       value="{$data.payamount}">
+            </div>
+        </div>
+        <div class="form-item">
+            <php> $id=''; if(!empty($data)){ $id= $data['id'];; }
+                if(empty($id)){ $id= I('id'); }
+            </php>
+            <input type="hidden" name="id" value="{$id}">
+        </div>
+
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit"
+                    target-form="form-horizontal">确 定
+            </button>
+            <button class="btn btn-return"
+                    onclick="javascript:history.back(-1);return false;">返 回
+            </button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        //导航高亮
+        $('.side-sub-menu').find('a[href="{:U('
+        Tencent / index
+        ')}"]'
+        ).closest('li').addClass('current');
+    </script>
+</block>

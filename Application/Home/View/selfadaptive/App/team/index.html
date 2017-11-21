@@ -1,0 +1,44 @@
+<!-- 原子力量updated：更新为BT3样式，提示文字加入了自己的link -->
+<extend name="Base/common"/>
+
+<block name="header">
+    <link href="{$viewRoot}/appstyle.css" rel="stylesheet">
+    <div class="row bg-primary text-center">
+            <h2>团队介绍</h2>
+    </div>
+</block>
+
+<block name="side">
+</block>
+
+<block name="body">
+    <div class="col-md-12">
+        <!-- Contents
+        ================================================== -->
+        <section id="memberList">
+        <volist name="data" id="member">
+        <div class="col-md-6 memberBox">
+            <div class="col-md-3 text-center">
+                <div class="row memberPhoto">
+                    <img class="img-circle" src="{$member.face|get_cover='path'}"/>   
+                </div>
+                <div class="row memberRole">
+                    <p><span class="label label-primary">{$member.role}</span></p>
+                </div>
+            </div>
+            <div class="col-md-9 memberInfor">
+                <div class="row memberGenInfor">
+                    <p>{$member.name} ({$member.nickname}) {$member.age}</p>
+                </div>
+                <div class="row memberSlogan">
+                    <p>{$member.slogan}</p>
+                </div>
+                <div class="row memberExper">
+                    <p>{$member.experience}</p>
+                </div>
+            </div>
+        </div>
+        </volist>   
+        </section>
+    </div>
+</block>

@@ -1,0 +1,85 @@
+<extend name="Base/common"/>
+<block name="script">
+    <script
+            src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script
+            type="text/javascript">
+        wx.config({
+                    appId: '{$signPackage.appID}',
+                    timestamp: {$signPackage.timeStamp
+                },
+                nonceStr
+        :
+        '{$signPackage.nonceString}',
+                signature
+        :
+        '{$signPackage.signature}',
+                jsApiList
+        :
+        [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo'
+        ]
+        })
+        ;
+    </script>
+</block>
+<block name="body">
+    <div class="page">
+        <div class="hd">
+            <h1 class="page_title">高端功能</h1>
+        </div>
+        <div class="bd">
+            <div class="weui_panel weui_panel_access">
+                <div class="weui_panel_bd">
+                    <php>
+                        $ahref= '';
+                        $imgsrc= '/Public/static/common/';
+                        $vipinfo= '';
+                        if((int)$data['vipid']>0){
+                        $ahref= 'javascript:void(0);';
+                        $imgsrc.='myvip_ok.png';
+                        $vipinfo='您的VIP号码为'.$data['vipid'];
+                        }else{
+                        $ahref= U('PayOuter/payForVIP',array(
+                        'userID'=>$data['userid'],
+                        'userOpenID'=>$data['weixinopenid']
+                        ));
+                        $imgsrc.='myvip_un.png';
+                        $vipinfo='点击支付佣金成为VIP会员';
+                        }
+                    </php>
+
+                    <a href="{$ahref}" class="weui_media_box weui_media_appmsg">
+                        <div class="weui_media_hd">
+                            <img class="weui_media_appmsg_thumb" src="{$imgsrc}" alt="">
+                        </div>
+                        <div class="weui_media_bd">
+                            <h4 class="weui_media_title">VIP</h4>
+                            <p class="weui_media_desc">
+                                {$vipinfo}<br/>
+                                vip会员享有不会过期的永久二维码等特权
+                            </p>
+                        </div>
+                    </a>
+                    <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                        <div class="weui_media_hd">
+                            <img class="weui_media_appmsg_thumb" src="__ROOT__/Public/static/common/myvip.png" alt="">
+                        </div>
+                        <div class="weui_media_bd">
+                            <h4 class="weui_media_title"> 其他高端功能</h4>
+                            <p class="weui_media_desc">
+                                商户功能：{$data.ismerchant_text};<br/>
+                                开通商户功能请联系QQ1344541385
+                            </p>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</block>

@@ -1,0 +1,44 @@
+<extend name="Base/common" />
+<block name="script"> <script
+	src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> <script
+	type="text/javascript">
+     wx.config({
+     	 appId: '{$signPackage.appID}',
+         timestamp: {$signPackage.timeStamp},
+         nonceStr: '{$signPackage.nonceString}',
+         signature: '{$signPackage.signature}',
+         jsApiList: [
+             'checkJsApi',
+             'onMenuShareTimeline',
+             'onMenuShareAppMessage',
+             'onMenuShareQQ',
+             'onMenuShareWeibo'
+           ]
+       }); 
+</script> </block>
+<block name="body"> <php> $iconName= $data['noticeType'];
+if(empty($iconName)){ $iconName= 'info'; } $iconName=
+'weui_icon_'.$iconName; </php>
+
+<div class="page">
+	<div class="weui_msg">
+		<div class="weui_icon_area">
+			<i class="{$iconName} weui_icon_msg"></i>
+		</div>
+		<div class="weui_text_area">
+			<h2 class="weui_msg_title">{$data.title}</h2>
+			<p class="weui_msg_desc">{$data.content}</p>
+		</div>
+		<div class="weui_opr_area">
+			<p class="weui_btn_area">
+				<a href="javascript:wx.closeWindow();"
+					class="weui_btn weui_btn_primary">确定</a>
+			</p>
+		</div>
+		<div class="weui_extra_area">
+			<php> if(!empty($data['detailsUrl'])){ echo '<a
+				href="'.$data['detailsUrl'].'">查看详情</a>'; } </php>
+		</div>
+	</div>
+</div>
+</block>

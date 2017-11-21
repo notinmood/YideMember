@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form action="/index.php/tencent/bee/merchantserviceop" method="post" class="form-horizontal">
+	<div class="form-item">
+		<label class="item-label">是否可用</label>
+		<div class="controls">
+			<select name="isusable">
+								<option value="1">有效</option><option value="0" selected>无效</option>
+							</select>
+		</div>
+	</div>
+	<div class="form-item">
+		<label class="item-label">价格</label>
+		<div class="controls">
+			<input type="text" class="text input-large" name="price"
+				value="">
+		</div>
+	</div>
+	<div class="form-item">
+		<label class="item-label">服务名称</label>
+		<div class="controls">
+			<textarea name="servicename"></textarea>
+		</div>
+		
+				<input type="hidden" name="userid" value="100001">
+		<input type="hidden" name="id" value="">
+	</div>
+
+	<div class="form-item">
+		<button class="btn submit-btn ajax-post" id="submit" type="submit"
+			target-form="form-horizontal">确 定</button>
+		<button class="btn btn-return"
+			onclick="javascript:history.back(-1);return false;">返 回</button>
+	</div>
+</form>
+</body>
+</html>

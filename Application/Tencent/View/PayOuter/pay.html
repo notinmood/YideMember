@@ -1,0 +1,75 @@
+<extend name="Base/common" />
+<block name="script"> <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+            wx.config({
+            	appId: '{$signPackage.appID}',
+                timestamp: {$signPackage.timeStamp},
+                nonceStr: '{$signPackage.nonceString}',
+                signature: '{$signPackage.signature}',
+               	jsApiList: [
+					'chooseWXPay'
+                  ]
+              });             
+
+            function pay(){
+            	wx.chooseWXPay({$jsApiParameters});
+            }
+        </script>
+<script type="text/javascript">
+	//调用微信JS api 支付
+	function onBridgeReady() {
+		WeixinJSBridge.invoke('getBrandWCPayRequest',
+				{$jsApiParameters}, function(res) {
+					WeixinJSBridge.log(res.err_msg);
+					//alert('code:'+res.err_code +';desc:'+ res.err_desc +';msg:'+ res.err_msg);
+					message= res.err_msg;
+					position= message.indexOf(":")+1;
+					result= message.substring(position);
+
+					if(result=="ok"){
+						alert("支付成功，感谢您的使用。");
+						wx.closeWindow();
+					}else{
+						alert("支付失败，请重新支付。");
+					}
+				});
+	}
+
+	function callpay() {
+		if (typeof WeixinJSBridge == "undefined") {
+			if (document.addEventListener) {
+				document.addEventListener('WeixinJSBridgeReady', onBridgeReady,
+						false);
+			} else if (document.attachEvent) {
+				document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+				document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+			}
+		} else {
+			onBridgeReady();
+		}
+	}
+
+</script>
+</block>
+<block name="body"> 
+<div class="page">
+	<div class="weui_msg">
+		<div class="weui_icon_area">
+			<i class="weui_icon_waiting weui_icon_msg"></i>
+		</div>
+		<div class="weui_text_area">
+			<h2 class="weui_msg_title">{$data.title}</h2>
+			<p class="weui_msg_desc">{$data.content}</p>
+		</div>
+		<div class="weui_opr_area">
+			<p class="weui_btn_area">
+				<a href="javascript:callpay();"
+					class="weui_btn weui_btn_primary">立即支付</a>
+			</p>
+		</div>
+		<div class="weui_extra_area">
+			
+		</div>
+	</div>
+</div>
+</block>

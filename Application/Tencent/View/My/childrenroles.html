@@ -1,0 +1,65 @@
+<extend name="Base/common"/>
+<block name="script">
+    <script
+            src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script
+            type="text/javascript">
+        wx.config({
+                    appId: '{$signPackage.appID}',
+                    timestamp: {$signPackage.timeStamp
+                },
+                nonceStr
+        :
+        '{$signPackage.nonceString}',
+                signature
+        :
+        '{$signPackage.signature}',
+                jsApiList
+        :
+        [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo'
+        ]
+        })
+        ;
+    </script>
+</block>
+<block name="body">
+    <div class="page">
+        <div class="hd">
+            <h1 class="page_title">子级角色信息</h1>
+        </div>
+        <div class="bd">
+            <div class="weui_panel weui_panel_access">
+                <div class="weui_panel_bd">
+                    <notempty name="data">
+                        <volist name="data" id="vo">
+                            <php>
+                                $url= U("My/childrenroles","roleid=".$vo['roleid']);
+                            </php>
+                            <a href="{$url}" class="weui_media_box weui_media_appmsg">
+                                <div class="weui_media_hd">
+                                    <img class="weui_media_appmsg_thumb" src="{$vo.headurl}" alt="">
+                                </div>
+                                <div class="weui_media_bd">
+                                    <h4 class="weui_media_title">{$vo.displayname}({$vo.paidtime|friendlyFormatTime})</h4>
+                                    <p class="weui_media_desc">
+                                        角色名称：{$vo.rolename}<br/>
+                                    </p>
+                                </div>
+                            </a>
+                        </volist>
+                        <else/>
+                        aOh! 暂时还没有内容!
+                    </notempty>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</block>

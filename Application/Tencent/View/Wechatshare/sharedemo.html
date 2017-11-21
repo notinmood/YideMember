@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        wx.config({
+                    appId: '{$signPackage.appID}',
+                    timestamp: {$signPackage.timeStamp
+                },
+                nonceStr
+        :
+        '{$signPackage.nonceString}',
+                signature
+        :
+        '{$signPackage.signature}',
+                jsApiList
+        :
+        [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo'
+        ]
+        })
+        ;
+        wx.ready(function () {
+            // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+            wx.checkJsApi({
+                jsApiList: [
+                    'getNetworkType',
+                    'previewImage',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareWeibo'
+                ],
+            });
+
+            var shareData = {
+//标题
+                title: '我是解大然',
+//摘要
+                desc: '这是一个很好游戏一起来玩吧。',
+//链接,可以换主页
+                link: '{$signPackage.url}',
+//缩略图
+                imgUrl: '缩略图',
+
+            };
+            wx.onMenuShareAppMessage(shareData);
+            wx.onMenuShareTimeline(shareData);
+            wx.onMenuShareQQ(shareData);
+            wx.onMenuShareWeibo(shareData);
+
+
+        });
+    </script>
+</head>
+<body>
+<input type="button" value='close' onclick='wx.closeWindow();'>
+</body>
+</html>

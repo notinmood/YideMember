@@ -1,0 +1,83 @@
+<extend name="Base/common"/>
+<block name="script">
+    <script
+            src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script
+            type="text/javascript">
+        wx.config({
+                    appId: '{$signPackage.appID}',
+                    timestamp: {$signPackage.timeStamp
+                },
+                nonceStr
+        :
+        '{$signPackage.nonceString}',
+                signature
+        :
+        '{$signPackage.signature}',
+                jsApiList
+        :
+        [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo'
+        ]
+        })
+        ;
+    </script>
+</block>
+<block name="body">
+    <div class="page">
+        <div class="hd">
+            <h1 class="page_title">我的个人信息</h1>
+        </div>
+        <div class="bd">
+            <div class="weui_panel weui_panel_access">
+                <div class="weui_panel_bd">
+                    <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                        <div class="weui_media_hd">
+                            <img class="weui_media_appmsg_thumb" src="{$data.headurl}" alt="">
+                        </div>
+                        <div class="weui_media_bd">
+                            <h4 class="weui_media_title">{$data.displayname}</h4>
+                            <p class="weui_media_desc">
+                                我的编号：{$data.userid} <br/>
+                                加入时间：{$data.jointime|time_format}<br/>
+                            </p>
+                        </div>
+                    </a>
+                    <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                        <div class="weui_media_hd">
+                            <img class="weui_media_appmsg_thumb" src="__ROOT__/Public/static/common/myfinance.png"
+                                 alt="">
+                        </div>
+                        <div class="weui_media_bd">
+                            <h4 class="weui_media_title">收益摘要</h4>
+                            <p class="weui_media_desc">
+                                可以资金：{$data.moneyamount} <br/>
+                                待激活资金：{$data.moneyamountneedactive}
+                            </p>
+                        </div>
+                    </a>
+                    <php>
+                        $advancedfunctionUrl= U('My/advancedfuncs','userid='.$data['userid']);
+                    </php>
+                    <a href="{$advancedfunctionUrl}" class="weui_media_box weui_media_appmsg">
+                        <div class="weui_media_hd">
+                            <img class="weui_media_appmsg_thumb" src="__ROOT__/Public/static/common/myvip.png" alt="">
+                        </div>
+                        <div class="weui_media_bd">
+                            <h4 class="weui_media_title">高端功能(点击进入详情)</h4>
+                            <p class="weui_media_desc">
+                                VIP编号：{$data.vipid_text} <br/>
+                                商户功能：{$data.ismerchant_text};
+                            </p>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</block>

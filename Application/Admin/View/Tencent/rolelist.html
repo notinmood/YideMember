@@ -1,0 +1,98 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>微信用户角色列表</h2>
+</div>
+<div class="cf">
+	<div class="fl"></div>
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<div class="sleft"></div>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="">
+		<thead>
+			<tr>
+				<th class="row-selected row-selected"><input class="check-all"
+					type="checkbox" /></th>
+
+				<th class="">角色ID</th>
+				<th class="">推荐人信息</th>
+				<th class="">父级信息</th>
+				<th class="">商户信息</th>
+				<th class="">庄信息</th>
+
+				<th class="">营收</th>
+
+				<th class="">加入时间</th>
+				<th class="">是否出局</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="_list"> <volist name="_list" id="vo">
+			<tr>
+				<td><input class="ids" type="checkbox" name="id[]"
+					value="{$vo.roleid}" /></td>
+
+				<td>{$vo.roleid}</td>
+				<td>{$vo.recommenduserid}</td>
+				<td>{$vo.parentid}</td>
+				<td>{$vo.merchantid}</td>
+				<td>{$vo.masterid}</td>
+				<td>{$vo.moneyamount}</td>
+
+				<td><span>{$vo.paidtime|time_format}</span></td>
+				<td>{$vo.outdegree_text}</td>
+			</tr>
+			</volist> <else />
+			<td colspan="10" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+
+<div class="form-item">
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+</block>
+
+<block name="script"> <script
+	src="__STATIC__/thinkbox/jquery.thinkbox.js"></script> <script
+	type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        
+        var query = $('.search-form').find('.specialitem').serialize();
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+    //导航高亮
+    $('.side-sub-menu').find('a[href="{:U('Tencent/index')}"]').closest('li').addClass('current');
+	</script> </block>

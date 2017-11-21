@@ -1,0 +1,119 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>转账支付通知列表</h2>
+</div>
+<div class="cf">
+	<div class="fl"></div>
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<div class="sleft">
+			<php> $className= 'Common\Common\ConfigHelper'; $methodArgs=
+			array( 'PAY_INNER_NOTICE_STATUSES','value','display' ); $result=
+			executeMethod($className,'get1DArray',null,$methodArgs);
+
+			$specialItem= I('specialitem','--'); if($specialItem=='--'){
+			$specialItem=-999; } </php>
+			<select style='float: left' class="specialitem" name="specialitem">
+				<if condition="$specialItem eq -999">
+				<option value="--" selected>所有项</option>
+				<else />
+				<option value="--">所有项</option>
+				</if>
+
+				<volist name=":$result" id="vo"> <if
+					condition="$specialItem eq $key">
+				<option value="{$key}" selected>{$vo}</option>
+				<else />
+				<option value="{$key}">{$vo}</option>
+				</if> </volist>
+
+			</select> <input type="text" name="nickname" class="search-input"
+				value="{:I('nickname')}" placeholder="请输入支付人或者接收人昵称"> <a
+				class="sch-btn" href="javascript:;" id="search" url="{:U()}"><i
+				class="btn-search"></i></a>
+
+		</div>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="">
+		<thead>
+			<tr>
+				<th class="row-selected row-selected"><input class="check-all"
+					type="checkbox" /></th>
+				<th class="">操作</th>
+				<th class="">支付ID</th>
+				<th class="">支付状态</th>
+				<th class="">支付人名称</th>
+				<th class="">标题</th>
+				<th class="">费用</th>
+				<th class="">通知发起时间</th>
+				<th class="">通知接收时间</th>
+				<th class="">支付确认/拒绝时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="_list"> <volist name="_list" id="vo">
+			<tr>
+				<td><input class="ids" type="checkbox" name="id[]"
+					value="{$vo.id}" /></td>
+				<td><switch name="vo.noticestatus"> <case value="0">
+					<a href="{:U('innerPrePay?id='.$vo['id'])}">收款</a>
+					<!--<a href="{:U('closePay?id='.$vo['id'])}" class="confirm ajax-get">取消</a>-->
+				</case> </switch></td>
+				<td>{$vo.id}</td>
+				<td>{$vo.noticestatus_text}</td>
+				<td>{$vo.fromusername}</td>
+				<td>{$vo.title}</td>
+				<td>{$vo.payamount}</td>
+				<td><span>{$vo.launchtime|friendlyFormatTime}</span></td>
+				<td><span>{$vo.receivedtime|friendlyFormatTime}</span></td>
+				<td><span>{$vo.confirmedtime|friendlyFormatTime}</span></td>
+			</tr>
+			</volist> <else />
+			<td colspan="10" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> <script
+	src="__STATIC__/thinkbox/jquery.thinkbox.js"></script> <script
+	type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        
+        var query = $('.search-form').find('.specialitem').serialize();
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+    //导航高亮
+    $('.side-sub-menu').find('a[href="{:U('User/index')}"]').closest('li').addClass('current');
+	</script> </block>
