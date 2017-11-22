@@ -1,4 +1,5 @@
 <?php
+
 namespace Tencent\Controller;
 
 use Common\Model\UserinfoModel;
@@ -122,10 +123,11 @@ class IndexController extends Controller
         }
     }
 
-    public function responseQRCode($openID){
+    public function responseQRCode($openID)
+    {
         // 1、根据当前用户的openid获取其在本地系统的userinfo
         $userinfo = UserinfoModel::getByOpenID($openID);
-        CommonHelper::log('用户二维码',$openID);
+        CommonHelper::log('用户二维码', $openID);
 
         // 2、生成推广二维码并保持
         $patharray = BizHelper::generateAndSaveQRCode($userinfo);
@@ -141,7 +143,7 @@ class IndexController extends Controller
         $mediaid = WechatHelper::uploadMedia($physicalpath); //根据用户生成具体的推广二维码
 
         // 4、将这个图片信息推送到用户微信中
-        WechatHelper::responseCustomerServiceImage($openID,$mediaid);
+        WechatHelper::responseCustomerServiceImage($openID, $mediaid);
     }
 }
 

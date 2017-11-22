@@ -22,21 +22,21 @@ class WechatConfig
      *
      * @var string
      */
-    const APPID = 'wx13856a19b29cc66b';
+    const APPID = 'wx9318adaeb94a37c3';
 
     const MCHID = '1239423402';
 
     const MCHKEY = 'jxDVOSfIi7l0oMCitb4sHoaXNQtdh1uE';
 
-    const APPSECRET = 'd85f4fb686e6e225c677a090029af211';
+    const APPSECRET = 'e09503f9e23bcc5b4ed48e61df5f0891';
 
     // 微信二次开发入口token
     const GATETOKEN = 'bigseagull20140112';
 
     // 微信公众平台商户的名称
-    const MCHNAME = '互动生活馆';
+    const MCHNAME = '益德健康';
 
-    const NOTIFYURL = 'http://app.rainytop.com/ott/index.php/tencent/pay/notify';
+    const NOTIFYURL = 'http://app.rainytop.com/yidemember/index.php/tencent/pay/notify';
 
     // =======【证书路径设置】=====================================
     /**
