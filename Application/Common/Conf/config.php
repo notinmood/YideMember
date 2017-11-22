@@ -53,11 +53,11 @@ return array(
 
     'DB_TYPE' => 'mysql', // 数据库类型
     'DB_HOST' => '127.0.0.1', // 服务器地址
-    'DB_NAME' => 'my_one2three', // 数据库名
+    'DB_NAME' => 'my_yidemember', // 数据库名
     'DB_USER' => 'root', // 用户名
-    'DB_PWD' => 'GQxB4LyasPhD8rqN', // 密码
+    'DB_PWD' => '', // 密码
     'DB_PORT' => '3306', // 端口
-    'DB_PREFIX' => 'ot33binbin_', // 数据库表前缀
+    'DB_PREFIX' => 'ott_', // 数据库表前缀
 
     /* 文档模型配置 (文档模型核心配置，请勿更改) */
     'DOCUMENT_MODEL_TYPE' => array(
