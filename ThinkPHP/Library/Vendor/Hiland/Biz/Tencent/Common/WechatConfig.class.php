@@ -24,7 +24,7 @@ class WechatConfig
      */
     const APPID = 'wx9318adaeb94a37c3';
 
-    const MCHID = '1239423402';
+    const MCHID = '1493201532';
 
     const MCHKEY = 'jxDVOSfIi7l0oMCitb4sHoaXNQtdh1uE';
 
