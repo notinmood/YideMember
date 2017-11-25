@@ -1,4 +1,5 @@
 <?php
+
 namespace Tencent\Model;
 
 use Common\Model\UserinfoModel;
@@ -50,7 +51,7 @@ class Mywechat extends Wechat
 
         $subscribeopenid = $this->getRequestOpenid();
         $subscribeuserinfo = WechatHelper::getUserInfo($subscribeopenid);
-        
+
 
         $userData['weixinname'] = $subscribeuserinfo->nickname;
         $userData['displayname'] = $subscribeuserinfo->nickname;
@@ -150,8 +151,8 @@ class Mywechat extends Wechat
         $envetkey = $this->getRequest('eventkey');
         switch ($envetkey) {
             case 'menu_myqrcode':
-                $openID= $this->getRequestOpenid();
-                $qrUrl= U("Tencent/Index/responseQRCode","openID=$openID");
+                $openID = $this->getRequestOpenid();
+                $qrUrl = U("Tencent/Index/responseQRCode", "openID=$openID");
                 Thread::asynExec($qrUrl);
                 $this->responseText("您的推广二维码生成之中，请稍等片刻。");
 //                // 1、根据当前用户的openid获取其在本地系统的userinfo
@@ -214,7 +215,7 @@ class Mywechat extends Wechat
     {
         $contentReceived = $this->getRequest('content');
 
-        CommonHelper::log('receive text',$contentReceived);
+        CommonHelper::log('receive text', $contentReceived);
 
         switch ($contentReceived) {
             case 'cs-tx':

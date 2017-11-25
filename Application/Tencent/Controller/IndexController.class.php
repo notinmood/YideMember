@@ -78,6 +78,11 @@ class IndexController extends Controller
         dump($result);
     }
 
+    public function deleteweixinmenu(){
+        $result= WechatHelper::deleteMenu();
+        dump($result);
+    }
+
     /**
      * oauth2认证的中间跳转页面
      * 根据微信认证服务器传递过来的state值，跟配置文件中的配置节点WEIXIN_OAUTH2_REDIRECTSTATE
