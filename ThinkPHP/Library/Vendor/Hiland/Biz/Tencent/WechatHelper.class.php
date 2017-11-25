@@ -1,4 +1,5 @@
 <?php
+
 namespace Vendor\Hiland\Biz\Tencent;
 
 use Vendor\Hiland\Biz\Tencent\Common\WechatConfig;
@@ -7,6 +8,15 @@ use Vendor\Hiland\Utils\Web\NetHelper;
 
 class WechatHelper
 {
+    /**
+     * 访问网络的时候是否直接使用curl方式。
+     * 因为php版本不同，可以适当切换是直接使用curl还是使用nethelper
+     * @return bool
+     */
+    private static function UseCURLMode()
+    {
+        return false;
+    }
 
     /**
      * 获取要生成带参数的二维码所需要的票据
@@ -245,40 +255,43 @@ class WechatHelper
         $result = false;
         $MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" . $accessToken;
 
-//        $ch = curl_init();
-//
-//        curl_setopt($ch, CURLOPT_URL, $MENU_URL);
-//        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-//        // curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-//        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-//        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
-//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-//        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, $menuJson);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//
-//        $info = curl_exec($ch);
-//        // return $info;
-//        if (curl_errno($ch)) {
-//            $result = false;
-//        } else {
-//            $result = json_decode($info, true);
-//            $result = $result["errcode"];
-//            // return $result;
-//            if ($result == 0) {
-//                $result = true;
-//            } else {
-//                $result = false;
-//            }
-//        }
-//
-//        curl_close($ch);
+        if (self::UseCURLMode()) {
+            $ch = curl_init();
 
-        $info = NetHelper::request($MENU_URL, $menuJson);
-        $result = json_decode($info, true);
-        $result = $result["errcode"];
-        // return $result;
+            curl_setopt($ch, CURLOPT_URL, $MENU_URL);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            // curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $menuJson);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+            $info = curl_exec($ch);
+            // return $info;
+            if (curl_errno($ch)) {
+                $result = false;
+            } else {
+                $result = json_decode($info, true);
+                $result = $result["errcode"];
+                // return $result;
+                if ($result == 0) {
+                    $result = true;
+                } else {
+                    $result = false;
+                }
+            }
+
+            curl_close($ch);
+        } else {
+            $info = NetHelper::request($MENU_URL, $menuJson);
+            $result = json_decode($info, true);
+            $result = $result["errcode"];
+        }
+
+
         if ($result == 0) {
             $result = true;
         } else {
@@ -303,14 +316,19 @@ class WechatHelper
 
         $MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=" . $accesstoken;
 
-        $cu = curl_init();
-        curl_setopt($cu, CURLOPT_URL, $MENU_URL);
-        curl_setopt($cu, CURLOPT_RETURNTRANSFER, 1);
-        $menu_json = curl_exec($cu);
-        $menu = json_decode($menu_json);
-        curl_close($cu);
+        if (self::UseCURLMode()) {
+            $cu = curl_init();
+            curl_setopt($cu, CURLOPT_URL, $MENU_URL);
+            curl_setopt($cu, CURLOPT_RETURNTRANSFER, 1);
+            $menu_json = curl_exec($cu);
+            $res = json_decode($menu_json);
+            curl_close($cu);
+        } else {
+            $info = NetHelper::request($MENU_URL);
+            $res = json_decode($info);
+        }
 
-        return $menu;
+        return $res;
     }
 
     /**
@@ -327,15 +345,18 @@ class WechatHelper
 
         $MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=" . $accessToken;
 
-//        $cu = curl_init();
-//        curl_setopt($cu, CURLOPT_URL, $MENU_URL);
-//        curl_setopt($cu, CURLOPT_RETURNTRANSFER, 1);
-//        $info = curl_exec($cu);
-//        $res = json_decode($info);
-//        curl_close($cu);
+        if (self::UseCURLMode()) {
+            $cu = curl_init();
+            curl_setopt($cu, CURLOPT_URL, $MENU_URL);
+            curl_setopt($cu, CURLOPT_RETURNTRANSFER, 1);
+            $info = curl_exec($cu);
+            $res = json_decode($info);
+            curl_close($cu);
+        } else {
+            $info = NetHelper::request($MENU_URL);
+            $res = json_decode($info);
+        }
 
-        $info = NetHelper::request($MENU_URL);
-        $res = json_decode($info);
 
         if ($res->errcode == "0") {
             return true;
