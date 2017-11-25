@@ -57,7 +57,7 @@ return array(
     'WEIXIN_QR_TEMP_EFFECT_SECONDS' => 604800,
 
     // 微信推广二维码所使用的背景图片路径（从网站根目录“/”写起）
-    'WEIXIN_RECOMMEND_BGPIC' => '/Public/static/common/sansanbg.jpg',
+    'WEIXIN_RECOMMEND_BGPIC' => '/Public/static/common/qrcodebg.jpg',
 
     // 微信推广二维码所使用的文字字体（从网站根目录“/”写起）
     'WEIXIN_RECOMMEND_TEXTFONT' => '/Public/static/common/stxingkai.ttf',
