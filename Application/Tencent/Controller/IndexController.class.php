@@ -27,20 +27,15 @@ class IndexController extends Controller
      */
     public function createweixinmenu()
     {
-        $readmeUrl = 'http://' . WebHelper::getHostName() . '/ott/index.php?s=/home/article/detail/id/1.html';
-        $marketingUrl = 'http://' . WebHelper::getHostName() . '/ott/index.php?s=/home/article/detail/id/3.html';
+        $readmeUrl = "http://www.sdydswkj.com/index.php/contact.html";//'http://' . WebHelper::getHostName() . '/ott/index.php?s=/home/article/detail/id/1.html';
+        //$marketingUrl = 'http://' . WebHelper::getHostName() . '/ott/index.php?s=/home/article/detail/id/3.html';
         $menujson = '
             {
                  "button":[
                  {
                        "type":"view",
-                       "name":"平台说明",
+                       "name":"关于益德",
                        "url":"' . $readmeUrl . '"
-                 },
-                 {
-                      "type":"view",
-                      "name":"招商加盟",
-                      "url":"' . $marketingUrl . '"
                  },
                  {
                        "name":"自助服务",
