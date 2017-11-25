@@ -327,12 +327,15 @@ class WechatHelper
 
         $MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=" . $accessToken;
 
-        $cu = curl_init();
-        curl_setopt($cu, CURLOPT_URL, $MENU_URL);
-        curl_setopt($cu, CURLOPT_RETURNTRANSFER, 1);
-        $info = curl_exec($cu);
+//        $cu = curl_init();
+//        curl_setopt($cu, CURLOPT_URL, $MENU_URL);
+//        curl_setopt($cu, CURLOPT_RETURNTRANSFER, 1);
+//        $info = curl_exec($cu);
+//        $res = json_decode($info);
+//        curl_close($cu);
+
+        $info = NetHelper::request($MENU_URL);
         $res = json_decode($info);
-        curl_close($cu);
 
         if ($res->errcode == "0") {
             return true;
