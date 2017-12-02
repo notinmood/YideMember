@@ -8,6 +8,7 @@ use Hiland\Common\CommonHelper;
 use Vendor\Hiland\Biz\Tencent\NewsResponseItem;
 use Vendor\Hiland\Biz\Tencent\Wechat;
 use Vendor\Hiland\Biz\Tencent\WechatHelper;
+use Vendor\Hiland\Utils\Data\DateHelper;
 use Vendor\Hiland\Utils\Data\StringHelper;
 use Vendor\Hiland\Utils\IO\Thread;
 use Vendor\Hiland\Utils\Web\WebHelper;
@@ -47,6 +48,9 @@ class Mywechat extends Wechat
             $recommendUserInfo = UserinfoModel::getByKey($recommendUserID);
             $recommendUserID = $recommendUserInfo['userid'];
             $recommendUserName = $recommendUserInfo['displayname'];
+            $recommendUserOpenid = $recommendUserInfo['weixinopenid'];
+
+            $userData['introducer'] = $recommendUserID;
         }
 
         $subscribeopenid = $this->getRequestOpenid();
@@ -61,23 +65,60 @@ class Mywechat extends Wechat
         $userData['usercity'] = $subscribeuserinfo->city;
         $userData['usercountry'] = $subscribeuserinfo->country;
         $userData['headurl'] = $subscribeuserinfo->headimgurl;
-        $userData['jointime'] = time();
+        $userData['jointime'] = DateHelper::format();
 
         $userID = UserinfoModel::interact($userData);
 
+        $randCharresult4self = false;
+        $randChar4self = null;
+        if ($userID) {
+            $randChar4self = CharGame::getRandChar();
+            $randCharresult4self = CharGame::generateChar($userID, $randChar4self);
+        }
+
         // 2、展示告知用户已经成为会员，及其推荐人信息
         if ($recommendUserID == 0) {
-            $this->responseText('欢迎关注微信公众平台，您是本平台的第[' . $userID . ']位会员，我们将为你提供全心全意的服务。');
+            $responseContent = '欢迎关注微信公众平台，您是本平台的第[' . $userID . ']位会员，我们将为你提供全心全意的服务。';
         } else {
             if (empty($recommendUserInfo)) {
-                $this->responseText('欢迎关注微信公众平台，您是本平台的第[' . $userID . ']位会员，我们将为你提供全心全意的服务。');
+                $responseContent = '欢迎关注微信公众平台，您是本平台的第[' . $userID . ']位会员，我们将为你提供全心全意的服务。';
             } else {
-                $responseContent = '欢迎关注微信公众平台，您是本平台的第[' . $userID . ']位会员。您的推荐人为：' . $recommendUserID . '号[' . $recommendUserName . ']。请选择推荐人的以下信息加入本平台：';
-                $responseContent .= StringHelper::getNewLineSymbol();
-                $responseContent .= BizHelper::getDisplayRecommendInfo($userID, $subscribeopenid, $recommendUserID);
-                $this->responseText($responseContent);
+                $responseContent = '欢迎关注微信公众平台，您是本平台的第[' . $userID . ']位会员。您的推荐人为：' . $recommendUserID . '号[' . $recommendUserName . ']。';
+                //$responseContent .= StringHelper::getNewLineSymbol();
+                //$responseContent .= BizHelper::getDisplayRecommendInfo($userID, $subscribeopenid, $recommendUserID);
             }
         }
+
+        if ($randCharresult4self) {
+            $responseContent .= StringHelper::getNewLineSymbol();
+            $responseContent .= "健康从自己做起，益德生物群众健康事业部全民健康普及活动正在进行。集齐“福”“禄”“寿”“喜”4个吉祥卡即可免费获赠60亿株益生菌一份。";
+
+            $responseContent .= StringHelper::getNewLineSymbol();
+            $responseContent .= "您关注本公众号获得吉祥卡“ $randChar4self ”一枚。快分享你在本平台的二维码（菜单 “自助服务”-“我的二维码”），让你和朋友一起收集其他几枚吉祥卡吧！";
+        }
+
+        $randChar4introducer = null;
+        $randCharresult4introducer = false;
+        if ($recommendUserID > 0) {
+            $randChar4introducer = CharGame::getRandChar();
+            $randCharresult4introducer = CharGame::generateChar($recommendUserID, $randChar4introducer);
+
+
+            if ($randCharresult4introducer) {
+                $weixinName = $userData['weixinname'];
+                $customerServiceText = "您的朋友 $weixinName 跟你一起选择健康的生活方式，他获赠吉祥卡“ $randChar4self ”一枚。";
+                $customerServiceText .= "同时，您也获赠吉祥卡“ $randChar4introducer ”一枚。";
+                WechatHelper::responseCustomerServiceText($recommendUserOpenid, $customerServiceText);
+            }
+        }
+
+
+        if ($randCharresult4introducer) {
+            $responseContent .= StringHelper::getNewLineSymbol();
+            $responseContent .= "本次您的朋友 $recommendUserName 获得吉祥卡“ $randChar4introducer ”一枚。";
+        }
+
+        $this->responseText($responseContent);
     }
 
     /**
@@ -155,26 +196,6 @@ class Mywechat extends Wechat
                 $qrUrl = U("Tencent/Index/responseQRCode", "openID=$openID");
                 Thread::asynExec($qrUrl);
                 $this->responseText("您的推广二维码生成之中，请稍等片刻。");
-//                // 1、根据当前用户的openid获取其在本地系统的userinfo
-//                $recommenduserid = 0;
-//                $userinfo = UserinfoModel::getByOpenID($this->getRequestOpenid());
-//
-//                // 2、生成推广二维码并保持进入sae storage中
-//                $patharray = BizHelper::generateAndSaveQRCode($userinfo);
-//                //$this->responseText('本功能修复中，稍后再试。'."(g)$patharray");
-//                $recommendpicurl = $patharray['weburl'];
-//                $physicalpath = $patharray['physicalpath'];
-//                if (!empty($userinfo)) {
-//                    $userinfo['recommendpicture'] = $recommendpicurl;
-//                    UserinfoModel::interact($userinfo);
-//                }
-//
-//                //$this->responseText($physicalpath);
-//                // 3、上传保存的图片到微信服务器，得到保存文件的mediaid
-//                $mediaid = WechatHelper::uploadMedia($physicalpath); //根据用户生成具体的推广二维码
-//
-//                // 4、将这个图片信息推送到用户微信中
-//                $this->responseImage($mediaid);
                 break;
             case 'menu_myfinance':
                 $redirecturl = 'http://' . WebHelper::getHostName() . C('WEIXIN_OAUTH2_REDIRECTPAGE');

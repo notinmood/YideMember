@@ -1,9 +1,9 @@
 <?php
 namespace Tencent\Controller;
 
+use Tencent\Model\CharGame;
 use Tencent\Model\Foo1;
 use Tencent\Model\Foo2;
-use Think\Controller;
 
 class FooController extends Fb2Controller
 {
@@ -36,6 +36,14 @@ class FooController extends Fb2Controller
             $foo = new Foo2();
         }
         $this->show($foo->getname());
+    }
+
+    public function randomchar($userid = 100)
+    {
+        $randChar = CharGame::getRandChar();
+        //dump($randChar);
+        $result = CharGame::generateChar($userid, $randChar);
+        dump($randChar . $result);
     }
 }
 

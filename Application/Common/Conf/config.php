@@ -11,7 +11,7 @@
  * 系统配文件
  * 所有系统级别的配置
  */
-return array(
+$config = array(
     /* 模块相关配置 */
     'AUTOLOAD_NAMESPACE' => array(
         'Addons' => ONETHINK_ADDON_PATH
@@ -237,3 +237,14 @@ return array(
     //允许显示给用户的推进信息条目数
     'SYSTEM_ALLOW_DISPLAY_RECOMMEND_ITEMCOUNT' => 6,
 );
+
+
+$serverName = \Vendor\Hiland\Utils\Web\WebHelper::getHostName();
+if (\Vendor\Hiland\Utils\Web\EnvironmentHelper::isLocalServer($serverName)) {
+    $db = include dirname(__FILE__) . "/db_local.php";
+} else {
+    $db = include dirname(__FILE__) . "/db_remote.php";
+}
+
+
+return array_merge($config, $db);

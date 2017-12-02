@@ -73,8 +73,9 @@ class IndexController extends Controller
         dump($result);
     }
 
-    public function deleteweixinmenu(){
-        $result= WechatHelper::deleteMenu();
+    public function deleteweixinmenu()
+    {
+        $result = WechatHelper::deleteMenu();
         dump($result);
     }
 
