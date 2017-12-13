@@ -72,7 +72,7 @@ class Mywechat extends Wechat
         $randCharresult4self = false;
         $randChar4self = null;
         if ($userID) {
-            $randChar4self = CharGame::getRandChar();
+            $randChar4self = CharGame::getRandGameChar();
             $randCharresult4self = CharGame::generateChar($userID, $randChar4self);
         }
 
@@ -90,8 +90,11 @@ class Mywechat extends Wechat
         }
 
         if ($randCharresult4self) {
+            $allGameChars = CharGame::getAllGameChars();
+            $allGameCharsCount = count($allGameChars);
+            $allGameCharsString = arr2str($allGameChars);
             $responseContent .= StringHelper::getNewLineSymbol();
-            $responseContent .= "健康从自己做起，益德生物群众健康事业部全民健康普及活动正在进行。集齐“福”“禄”“寿”“喜”4个吉祥卡即可免费获赠60亿株益生菌一份。";
+            $responseContent .= "健康从自己做起，益德生物群众健康事业部全民健康普及活动正在进行。集齐“ $allGameCharsString ” $allGameCharsCount 个吉祥卡即可免费获赠60亿株益生菌一份。";
 
             $responseContent .= StringHelper::getNewLineSymbol();
             $responseContent .= "您关注本公众号获得吉祥卡“ $randChar4self ”一枚。快分享你在本平台的二维码（菜单 “自助服务”-“我的二维码”），让你和朋友一起收集其他几枚吉祥卡吧！";
@@ -100,7 +103,7 @@ class Mywechat extends Wechat
         $randChar4introducer = null;
         $randCharresult4introducer = false;
         if ($recommendUserID > 0) {
-            $randChar4introducer = CharGame::getRandChar();
+            $randChar4introducer = CharGame::getRandGameChar();
             $randCharresult4introducer = CharGame::generateChar($recommendUserID, $randChar4introducer);
 
 

@@ -16,7 +16,7 @@ class CharGame
     public static function generateChar($userid, $randChar)
     {
         if (empty($randChar)) {
-            $randChar = self::getRandChar();
+            $randChar = self::getRandGameChar();
         }
 
         $mate = new ModelMate("chargame");
@@ -45,9 +45,9 @@ class CharGame
     /** 随机生成一个字符
      * @return 随机字符
      */
-    public static function getRandChar()
+    public static function getRandGameChar()
     {
-        $systemChars = self::getSystemChars();
+        $systemChars = self::getAllGameChars();
         $systemCharsCount = count($systemChars);
         $randNumber = mt_rand(0, $systemCharsCount - 1);
         $randomChar = $systemChars[$randNumber];
@@ -55,7 +55,7 @@ class CharGame
         return $randomChar;
     }
 
-    private static function getSystemChars()
+    public static function getAllGameChars()
     {
         return array("福", "禄", "寿", "喜");
     }

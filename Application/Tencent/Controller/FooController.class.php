@@ -40,7 +40,7 @@ class FooController extends Fb2Controller
 
     public function randomchar($userid = 100)
     {
-        $randChar = CharGame::getRandChar();
+        $randChar = CharGame::getRandGameChar();
         //dump($randChar);
         $result = CharGame::generateChar($userid, $randChar);
         dump($randChar . $result);
