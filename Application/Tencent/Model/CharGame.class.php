@@ -57,6 +57,44 @@ class CharGame
 
     public static function getAllGameChars()
     {
-        return array("福", "禄", "寿", "喜");
+        return array("益", "欣", "德", "成");
+    }
+
+    /**获取用户当前参加的字符活动的所有字符
+     * @param $userid
+     * @return array
+     */
+    public static function getCurrentChars($userid)
+    {
+        $result = [];
+        $allUserChars = self::getGamesChars($userid);
+        $currentGameChars = self::getAllGameChars();
+
+        foreach ($allUserChars as $row) {
+            foreach ($currentGameChars as $char) {
+                if ($row[CharGameEntity::CHARNAME] == $char) {
+                    $result[] = $row;
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * 获取用户参加的字符游戏获取的所有字符
+     * @param $userid
+     * @return array
+     */
+    public static function getGamesChars($userid)
+    {
+        $mate = new ModelMate("chargame");
+        $condition = array(
+            'userid' => $userid,
+        );
+
+        $existRows = $mate->select($condition);
+
+        return $existRows;
     }
 }

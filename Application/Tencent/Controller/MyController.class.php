@@ -50,6 +50,9 @@ class MyController extends PageController
         $userData = UserinfoModel::getByOpenID($useropenid);
         $userID = $userData['userid'];
 
+        $chars = CharGame::getCurrentChars($userID);
+        $this->assign("chars", $chars);
+
         $this->display();
     }
 

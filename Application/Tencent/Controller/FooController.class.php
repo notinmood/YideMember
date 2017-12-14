@@ -1,4 +1,5 @@
 <?php
+
 namespace Tencent\Controller;
 
 use Tencent\Model\CharGame;
@@ -23,7 +24,8 @@ class FooController extends Fb2Controller
         echo 'aaaaaaaa';
     }
 
-    public function b(){
+    public function b()
+    {
         self::a();
         echo 'bbbbbbbb';
     }
@@ -44,6 +46,11 @@ class FooController extends Fb2Controller
         //dump($randChar);
         $result = CharGame::generateChar($userid, $randChar);
         dump($randChar . $result);
+    }
+
+    public function chartest($userid = 100)
+    {
+        dump(CharGame::getCurrentChars($userid));
     }
 }
 

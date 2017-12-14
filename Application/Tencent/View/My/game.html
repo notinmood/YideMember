@@ -34,10 +34,14 @@
         </div>
         <div class="bd">
             <ul class="list-group">
-                <li class="list-group-item list-group-item-success">Dapibus ac facilisis in</li>
-                <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
-                <li class="list-group-item list-group-item-warning">Porta ac consectetur ac</li>
-                <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                <volist name="chars" id="vo" mod='2'>
+                    <eq name='mod' value='1'>
+                        <li class="list-group-item list-group-item-success">{$vo.charname}{$vo.charcount}</li>
+                    </eq>
+                    <eq name='mod' value='0'>
+                        <li class="list-group-item list-group-item-info">{$vo.charname}{$vo.charcount}</li>
+                    </eq>
+                </volist>
             </ul>
         </div>
     </div>
