@@ -22,6 +22,7 @@ class MyController extends PageController
      */
     public function index($useropenid)
     {
+        self::passInfrastructure2Page();
         $userData = UserinfoModel::getByOpenID($useropenid);
 
         $friendlymaps = array(
