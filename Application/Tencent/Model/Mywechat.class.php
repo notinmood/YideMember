@@ -94,10 +94,10 @@ class Mywechat extends Wechat
             $allGameCharsCount = count($allGameChars);
             $allGameCharsString = arr2str($allGameChars);
             $responseContent .= StringHelper::getNewLineSymbol();
-            $responseContent .= "健康从自己做起，益德生物群众健康事业部全民健康普及活动正在进行。集齐“ $allGameCharsString ” $allGameCharsCount 个吉祥卡即可免费获赠60亿株益生菌一份。";
+            $responseContent .= "健康从自己做起，益德生物群众健康事业部全民健康普及活动正在进行。集齐“ $allGameCharsString ” $allGameCharsCount 枚吉祥卡即可免费获赠60亿株益生菌一份。";
 
             $responseContent .= StringHelper::getNewLineSymbol();
-            $responseContent .= "您关注本公众号获得吉祥卡“ $randChar4self ”一枚。快分享你在本平台的二维码（菜单 “自助服务”-“我的二维码”），让你和朋友一起收集其他几枚吉祥卡吧！";
+            $responseContent .= "您关注本公众号获得吉祥卡“ $randChar4self ”一枚。快分享你在本平台的二维码（菜单 “自助服务”-“我的二维码”），让你和朋友一起收集其他几枚吉祥卡吧(每邀请一位朋友，你和朋友分别获赠新的吉祥卡一枚)！";
         }
 
         $randChar4introducer = null;

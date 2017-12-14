@@ -8,16 +8,14 @@
 
 namespace Tencent\Controller;
 
-
 use Common\Common\ConfigHelper;
+use Common\Controller\PageController;
 use Common\Model\UserinfoModel;
 use Common\Model\UserrolesModel;
 use Hiland\Model\ViewMate;
-use Think\App;
-use Think\Controller;
 use Vendor\Hiland\Utils\Data\ArrayHelper;
 
-class MyController extends Controller
+class MyController extends PageController
 {
     /**
      * @param $useropenid

@@ -236,6 +236,11 @@ $config = array(
 
     //允许显示给用户的推进信息条目数
     'SYSTEM_ALLOW_DISPLAY_RECOMMEND_ITEMCOUNT' => 6,
+
+    //前台页面显示的title等信息
+    'PAGE_TITLE' => '益德群众健康',
+    'PAGE_KEYWORDS' => '益德群众健康',
+    'PAGE_DESCRIPTION' => '益德群众健康',
 );
 
 
