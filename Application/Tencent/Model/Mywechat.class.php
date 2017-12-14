@@ -219,7 +219,7 @@ class Mywechat extends Wechat
                 break;
             case 'menu_roleservice':
                 $userOpenID = $this->getRequestOpenid();
-                $redirecturl = 'http://' . WebHelper::getHostName() . U('Tencent/My/roleservice', "useropenid=$userOpenID");
+                $redirecturl = 'http://' . WebHelper::getHostName() . U('Tencent/My/game', "useropenid=$userOpenID");
 
 
                 $this->responseText('活动信息已经准备就绪' . StringHelper::getNewLineSymbol() . '<a href="' . $redirecturl . '">==>请点击查看<==</a>');

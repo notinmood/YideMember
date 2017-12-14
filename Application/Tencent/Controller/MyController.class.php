@@ -45,6 +45,19 @@ class MyController extends PageController
         $this->display();
     }
 
+    public function game($useropenid)
+    {
+        $userData = UserinfoModel::getByOpenID($useropenid);
+        $userID = $userData['userid'];
+
+        $this->display();
+    }
+
+    public function gameList()
+    {
+
+    }
+
     /**
      * @param $useropenid
      */
