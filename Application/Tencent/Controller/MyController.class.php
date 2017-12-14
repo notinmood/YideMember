@@ -22,6 +22,7 @@ class MyController extends PageController
      */
     public function index($useropenid)
     {
+        //传递页面基础信息
         self::passInfrastructure2Page();
         $userData = UserinfoModel::getByOpenID($useropenid);
 
