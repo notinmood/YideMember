@@ -13,6 +13,7 @@ use Common\Controller\PageController;
 use Common\Model\UserinfoModel;
 use Common\Model\UserrolesModel;
 use Hiland\Model\ViewMate;
+use Tencent\Model\CharGame;
 use Vendor\Hiland\Utils\Data\ArrayHelper;
 
 class MyController extends PageController
