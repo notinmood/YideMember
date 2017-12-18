@@ -1,0 +1,10 @@
+{
+  "name": "rainytop/yidemember",
+  "description": "益德微信服务号会员系统",
+  "type": "project",
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.3.0",
+    "rainytop/phpbasiclibary": "10.0.*"
+  }
+}

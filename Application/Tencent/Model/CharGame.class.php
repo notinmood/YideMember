@@ -70,12 +70,25 @@ class CharGame
         $allUserChars = self::getAllGamesChars4User($userid);
         $currentGameChars = self::getCurrentGameChars();
 
-        foreach ($allUserChars as $row) {
-            foreach ($currentGameChars as $char) {
+//        foreach ($allUserChars as $row) {
+//            foreach ($currentGameChars as $char) {
+//                if ($row[CharGameEntity::CHARNAME] == $char) {
+//                    $result[] = $row;
+//                }
+//            }
+//        }
+
+
+        foreach ($currentGameChars as $char) {
+            $matched = false;
+            $item['charname'] = $char;
+            $item['charcount'] = 0;
+            foreach ($allUserChars as $row) {
                 if ($row[CharGameEntity::CHARNAME] == $char) {
-                    $result[] = $row;
+                    $item['charcount'] = $row['charcount'];
                 }
             }
+            $result[] = $item;
         }
 
         return $result;
