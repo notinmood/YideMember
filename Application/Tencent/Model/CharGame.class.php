@@ -8,7 +8,6 @@
 
 namespace Tencent\Model;
 
-
 use Vendor\Hiland\Utils\DataModel\ModelMate;
 
 class CharGame
@@ -69,15 +68,6 @@ class CharGame
         $result = [];
         $allUserChars = self::getAllGamesChars4User($userid);
         $currentGameChars = self::getCurrentGameChars();
-
-//        foreach ($allUserChars as $row) {
-//            foreach ($currentGameChars as $char) {
-//                if ($row[CharGameEntity::CHARNAME] == $char) {
-//                    $result[] = $row;
-//                }
-//            }
-//        }
-
 
         foreach ($currentGameChars as $char) {
             $matched = false;

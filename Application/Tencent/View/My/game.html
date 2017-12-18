@@ -36,10 +36,12 @@
             <ul class="list-group">
                 <volist name="chars" id="vo" mod='2'>
                     <eq name='mod' value='1'>
-                        <li class="list-group-item list-group-item-success">{$vo.charname}--{$vo.charcount}</li>
+                        <li class="list-group-item list-group-item-success">{$vo.charname}<span class="badge">{$vo.charcount}</span>
+                        </li>
                     </eq>
                     <eq name='mod' value='0'>
-                        <li class="list-group-item list-group-item-info">{$vo.charname}--{$vo.charcount}</li>
+                        <li class="list-group-item list-group-item-info">{$vo.charname}<span class="badge">{$vo.charcount}</span>
+                        </li>
                     </eq>
                 </volist>
             </ul>
