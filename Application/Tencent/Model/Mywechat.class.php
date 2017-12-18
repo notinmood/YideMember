@@ -73,7 +73,7 @@ class Mywechat extends Wechat
         $randChar4self = null;
         if ($userID) {
             $randChar4self = CharGame::getRandGameChar();
-            $randCharresult4self = CharGame::generateChar($userID, $randChar4self);
+            $randCharresult4self = CharGame::generateChar4User($userID, $randChar4self);
         }
 
         // 2、展示告知用户已经成为会员，及其推荐人信息
@@ -90,7 +90,7 @@ class Mywechat extends Wechat
         }
 
         if ($randCharresult4self) {
-            $allGameChars = CharGame::getAllGameChars();
+            $allGameChars = CharGame::getCurrentGameChars();
             $allGameCharsCount = count($allGameChars);
             $allGameCharsString = arr2str($allGameChars);
             $responseContent .= StringHelper::getNewLineSymbol();
@@ -104,7 +104,7 @@ class Mywechat extends Wechat
         $randCharresult4introducer = false;
         if ($recommendUserID > 0) {
             $randChar4introducer = CharGame::getRandGameChar();
-            $randCharresult4introducer = CharGame::generateChar($recommendUserID, $randChar4introducer);
+            $randCharresult4introducer = CharGame::generateChar4User($recommendUserID, $randChar4introducer);
 
 
             if ($randCharresult4introducer) {

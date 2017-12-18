@@ -45,13 +45,13 @@ class FooController extends Fb2Controller
     {
         $randChar = CharGame::getRandGameChar();
         //dump($randChar);
-        $result = CharGame::generateChar($userid, $randChar);
+        $result = CharGame::generateChar4User($userid, $randChar);
         dump($randChar . $result);
     }
 
     public function chartest($userid = 100)
     {
-        dump(CharGame::getCurrentChars($userid));
+        dump(CharGame::getCurrentGameChars4User($userid));
     }
 
     public function tbs($tableName = '')

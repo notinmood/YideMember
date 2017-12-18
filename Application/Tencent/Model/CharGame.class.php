@@ -13,7 +13,7 @@ use Vendor\Hiland\Utils\DataModel\ModelMate;
 
 class CharGame
 {
-    public static function generateChar($userid, $randChar)
+    public static function generateChar4User($userid, $randChar)
     {
         if (empty($randChar)) {
             $randChar = self::getRandGameChar();
@@ -47,7 +47,7 @@ class CharGame
      */
     public static function getRandGameChar()
     {
-        $systemChars = self::getAllGameChars();
+        $systemChars = self::getCurrentGameChars();
         $systemCharsCount = count($systemChars);
         $randNumber = mt_rand(0, $systemCharsCount - 1);
         $randomChar = $systemChars[$randNumber];
@@ -55,7 +55,7 @@ class CharGame
         return $randomChar;
     }
 
-    public static function getAllGameChars()
+    public static function getCurrentGameChars()
     {
         return array("益", "欣", "德", "成");
     }
@@ -64,11 +64,11 @@ class CharGame
      * @param $userid
      * @return array
      */
-    public static function getCurrentChars($userid)
+    public static function getCurrentGameChars4User($userid)
     {
         $result = [];
-        $allUserChars = self::getGamesChars($userid);
-        $currentGameChars = self::getAllGameChars();
+        $allUserChars = self::getAllGamesChars4User($userid);
+        $currentGameChars = self::getCurrentGameChars();
 
         foreach ($allUserChars as $row) {
             foreach ($currentGameChars as $char) {
@@ -86,7 +86,7 @@ class CharGame
      * @param $userid
      * @return array
      */
-    public static function getGamesChars($userid)
+    public static function getAllGamesChars4User($userid)
     {
         $mate = new ModelMate("chargame");
         $condition = array(
