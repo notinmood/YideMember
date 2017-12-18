@@ -15,7 +15,6 @@ namespace Home\Controller;
  */
 class IndexController extends HomeController
 {
-
     //系统首页
     public function index()
     {
@@ -30,5 +29,4 @@ class IndexController extends HomeController
 
         $this->display();
     }
-
 }
