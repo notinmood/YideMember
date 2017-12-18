@@ -189,6 +189,46 @@ class StringHelper
             return $data;
         }
     }
+
+    /**
+     * 将字符串中第一个单词的首字母大写
+     * @param $data
+     * @return string
+     */
+    public static function upperStringFirstChar($data)
+    {
+        return ucfirst($data);
+    }
+
+    /**
+     * 将字符串中每一个单词的首字母大写
+     * @param $data
+     * @return string
+     */
+    public static function upperWordsFirstChar($data)
+    {
+        return ucwords($data);
+    }
+
+    /**
+     * 将字符串中每一个字母都转成大写
+     * @param $data
+     * @return string
+     */
+    public static function upper($data)
+    {
+        return mb_strtoupper($data);
+    }
+
+    /**
+     * 将字符串中每一个字母都转成小写
+     * @param $data
+     * @return string
+     */
+    public static function lower($data)
+    {
+        return mb_strtolower($data);
+    }
 }
 
 ?>
